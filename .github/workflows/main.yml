@@ -16,7 +16,7 @@ jobs:
         working-directory: uaw-fixed
         run: gradle jar
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: UAW-mod
           path: uaw-fixed/build/libs/*.jar
