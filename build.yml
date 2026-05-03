@@ -1,0 +1,30 @@
+name: Build UAW Mod
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Unzip source
+        run: unzip UAW-v8-fixed-source.zip
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        working-directory: uaw-fixed
+        run: |
+          chmod +x gradlew 2>/dev/null || true
+          gradle jar
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: UAW-mod
+          path: uaw-fixed/build/libs/*.jar
